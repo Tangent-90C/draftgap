@@ -5,9 +5,10 @@ import { DamageDistributionBar } from "./DamageDistributionBar";
 import { Pick } from "./Pick";
 import { TeamOptions } from "./TeamOptions";
 import { tooltip } from "../../directives/tooltip";
-import { capitalize } from "../../utils/strings";
 import { getRatingClass } from "../../utils/rating";
 import { useDraftAnalysis } from "../../contexts/DraftAnalysisContext";
+import { useUser } from "../../contexts/UserContext";
+import { t, teamName } from "../../utils/i18n";
 // eslint-disable-next-line
 tooltip;
 
@@ -20,6 +21,7 @@ export function TeamSidebar(props: IProps) {
         allyDraftAnalysis: allyDraftResult,
         opponentDraftAnalysis: opponentDraftResult,
     } = useDraftAnalysis();
+    const { config } = useUser();
 
     const rating = () =>
         props.team === "ally"
@@ -34,12 +36,13 @@ export function TeamSidebar(props: IProps) {
                     class="text-[2.5rem] text-center leading-tight"
                     // @ts-ignore
                     use:tooltip={{
-                        content: (
-                            <>{capitalize(props.team)} estimated winrate</>
-                        ),
+                        content:
+                            props.team === "ally"
+                                ? t(config, "allyEstimatedWinrate")
+                                : t(config, "opponentEstimatedWinrate"),
                     }}
                 >
-                    {props.team.toUpperCase()}
+                    {teamName(config, props.team)}
                     <br />
                     <CountUp
                         value={rating() ? ratingToWinrate(rating()!) : 0.5}

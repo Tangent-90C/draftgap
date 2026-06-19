@@ -2,6 +2,8 @@ import { Table as TanstackTable, flexRender, Row } from "@tanstack/solid-table";
 import { createVirtualizer } from "@tanstack/solid-virtual";
 import { For, JSX, Show, createMemo } from "solid-js";
 import { cn } from "../../utils/style";
+import { useUser } from "../../contexts/UserContext";
+import { t } from "../../utils/i18n";
 
 interface Props<T> {
     table: TanstackTable<T>;
@@ -11,6 +13,7 @@ interface Props<T> {
 
 export function Table<T>(props: Props<T> & JSX.HTMLAttributes<HTMLDivElement>) {
     let tableEl: HTMLTableElement | undefined;
+    const { config } = useUser();
 
     const rows = createMemo(() => props.table.getRowModel().rows);
 
@@ -195,7 +198,7 @@ export function Table<T>(props: Props<T> & JSX.HTMLAttributes<HTMLDivElement>) {
                                 class="py-6 px-2 text-center uppercase text-lg text-neutral-500"
                                 colspan="100%"
                             >
-                                No results
+                                {t(config, "noResults")}
                             </td>
                         </tr>
                     </Show>

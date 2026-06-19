@@ -20,6 +20,7 @@ import { useLolClient } from "./contexts/LolClientContext";
 import { Badge } from "./components/common/Badge";
 import { FilterMenu } from "./components/draft/FilterMenu";
 import { formatDistance } from "date-fns";
+import { zhCN } from "date-fns/locale";
 import { ViewTabs } from "./components/common/ViewTabs";
 import { BuildsView } from "./components/views/builds/BuildsView";
 import { useDraftView } from "./contexts/DraftViewContext";
@@ -39,6 +40,7 @@ import { useMedia } from "./hooks/useMedia";
 import { buttonVariants } from "./components/common/Button";
 import { cn } from "./utils/style";
 import { LanguageDropdownMenu } from "./components/LanguageMenu";
+import { t } from "./utils/i18n";
 
 const App: Component = () => {
     const { config } = useUser();
@@ -66,6 +68,7 @@ const App: Component = () => {
         dataset()
             ? formatDistance(new Date(dataset()!.date), new Date(), {
                   addSuffix: true,
+                  locale: config.language === "zh_CN" ? zhCN : undefined,
               })
             : "";
 
@@ -84,8 +87,7 @@ const App: Component = () => {
                         }
                     >
                         <div class="flex justify-center items-center h-full text-2xl text-red-500">
-                            An unexpected error occurred. Please try again
-                            later.
+                            {t(config, "unexpectedError")}
                         </div>
                     </Match>
                     <Match when={!isLoaded()}>
@@ -114,17 +116,17 @@ const App: Component = () => {
                                 tabs={
                                     [
                                         {
-                                            label: "Draft",
+                                            label: t(config, "draft"),
                                             value: "draft",
                                         },
                                         {
-                                            label: "Draft Analysis",
+                                            label: t(config, "draftAnalysis"),
                                             value: "analysis",
                                         },
                                         ...(config.enableBetaFeatures
                                             ? ([
                                                   {
-                                                      label: "Builds",
+                                                      label: t(config, "builds"),
                                                       value: "builds",
                                                   },
                                               ] as const)
@@ -211,8 +213,14 @@ const App: Component = () => {
                 </h1>
                 <div class="flex items-center gap-4">
                     <div class="text-xs text-neutral-400 hidden md:flex flex-col text-right uppercase">
-                        <span>Patch {dataset()?.version ?? ""}</span>
-                        <span>Last updated {timeAgo()}</span>
+                        <span>
+                            {t(config, "patch", {
+                                version: dataset()?.version ?? "",
+                            })}
+                        </span>
+                        <span>
+                            {t(config, "lastUpdated", { time: timeAgo() })}
+                        </span>
                     </div>
                     <Dialog
                         open={showDownloadModal()}

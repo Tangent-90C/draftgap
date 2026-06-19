@@ -27,7 +27,7 @@ import { informationCircle } from "solid-heroicons/solid-mini";
 import { Dialog } from "../common/Dialog";
 import { ChampionDraftAnalysisDialog } from "../dialogs/ChampionDraftAnalysisDialog";
 import { Team } from "@draftgap/core/src/models/Team";
-import { championName } from "../../utils/i18n";
+import { championName, t } from "../../utils/i18n";
 
 export default function DraftTable() {
     const { dataset } = useDataset();
@@ -161,6 +161,7 @@ export default function DraftTable() {
                         resetFilters: false,
                         reportEvent: false,
                         updateView: false,
+                        syncToClient: false,
                     },
                 );
                 setRoleFilter(savedRoleFilter());
@@ -180,6 +181,7 @@ export default function DraftTable() {
                         resetFilters: false,
                         reportEvent: false,
                         updateView: false,
+                        syncToClient: false,
                     },
                 );
             }
@@ -249,7 +251,7 @@ export default function DraftTable() {
             enableSorting: false,
         },
         {
-            header: "Role",
+            header: t(config, "role"),
             accessorFn: (suggestion) => suggestion.role,
             cell: (info) => <RoleCell role={info.getValue<Role>()} />,
             meta: {
@@ -258,7 +260,7 @@ export default function DraftTable() {
             sortDescFirst: false,
         },
         {
-            header: "Champion",
+            header: t(config, "champion"),
             accessorFn: (suggestion) => suggestion.championKey,
             cell: (info) => (
                 <ChampionCell championKey={info.getValue<string>()} />
@@ -273,7 +275,7 @@ export default function DraftTable() {
         ...(config.showAdvancedWinrates
             ? ([
                   {
-                      header: "Champions",
+                      header: t(config, "champions"),
                       accessorFn: (suggestion) =>
                           suggestion.draftResult.allyChampionRating.totalRating,
                       cell: (info) => (
@@ -283,7 +285,7 @@ export default function DraftTable() {
                       ),
                   },
                   {
-                      header: "Matchups",
+                      header: t(config, "matchups"),
                       accessorFn: (suggestion) =>
                           suggestion.draftResult.matchupRating.totalRating,
                       cell: (info) => (
@@ -293,7 +295,7 @@ export default function DraftTable() {
                       ),
                   },
                   {
-                      header: "Duos",
+                      header: t(config, "duos"),
                       accessorFn: (suggestion) =>
                           suggestion.draftResult.allyDuoRating.totalRating,
                       cell: (info) => (
@@ -305,7 +307,7 @@ export default function DraftTable() {
               ] as ColumnDef<Suggestion>[])
             : []),
         {
-            header: "Winrate",
+            header: t(config, "winrate"),
             accessorFn: (suggestion) => suggestion.draftResult.totalRating,
             cell: (info) => (
                 <div class="flex justify-end">
@@ -357,7 +359,7 @@ export default function DraftTable() {
 
     function pick(row: Row<Suggestion>) {
         if (!selection.team) {
-            createMustSelectToast();
+            createMustSelectToast(config);
             return;
         }
 

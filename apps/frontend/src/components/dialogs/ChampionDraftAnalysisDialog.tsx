@@ -1,4 +1,3 @@
-import { displayNameByRole } from "@draftgap/core/src/models/Role";
 import { Team } from "@draftgap/core/src/models/Team";
 import { ChampionIcon } from "../icons/ChampionIcon";
 import { MatchupResultTable } from "../views/analysis/MatchupResultTable";
@@ -12,7 +11,7 @@ import { DialogContent, DialogTitle } from "../common/Dialog";
 import { cn } from "../../utils/style";
 import { displayNameByStatsSite, linkByStatsSite } from "../../utils/sites";
 import { useUser } from "../../contexts/UserContext";
-import { championName } from "../../utils/i18n";
+import { championName, roleName, t, teamName } from "../../utils/i18n";
 // eslint-disable-next-line
 tooltip;
 
@@ -59,7 +58,8 @@ export function ChampionDraftAnalysisDialog(props: Props) {
                 <div class="flex flex-col justify-center">
                     <DialogTitle>{name()}</DialogTitle>
                     <span class="text-xl text-neutral-300 uppercase mb-[16px]">
-                        {props.team} {displayNameByRole[role()!]}
+                        {teamName(config, props.team)}{" "}
+                        {roleName(config, role()!)}
                     </span>
                 </div>
                 <a
@@ -90,10 +90,16 @@ export function ChampionDraftAnalysisDialog(props: Props) {
                     class="text-3xl uppercase ml-4"
                     // @ts-ignore
                     use:tooltip={{
-                        content: <>Winrates of all {name()} matchups</>,
+                        content: (
+                            <>
+                                {t(config, "allChampionMatchupsTooltip", {
+                                    name: name(),
+                                })}
+                            </>
+                        ),
                     }}
                 >
-                    Matchups
+                    {t(config, "matchups")}
                 </h3>
                 <p
                     class="text-neutral-500 uppercase mb-1 ml-4"
@@ -108,7 +114,7 @@ export function ChampionDraftAnalysisDialog(props: Props) {
                         ),
                     }}
                 >
-                    Champion winrates normalized
+                    {t(config, "championWinratesNormalized")}
                 </p>
                 <MatchupResultTable
                     showAll={true}
@@ -146,10 +152,16 @@ export function ChampionDraftAnalysisDialog(props: Props) {
                     class="text-3xl uppercase mb-1 ml-4"
                     // @ts-ignore
                     use:tooltip={{
-                        content: <>Winrates of all {name()} duos</>,
+                        content: (
+                            <>
+                                {t(config, "allChampionDuosTooltip", {
+                                    name: name(),
+                                })}
+                            </>
+                        ),
                     }}
                 >
-                    Duos
+                    {t(config, "duos")}
                 </h3>
                 <DuoResultTable
                     team={props.team}
