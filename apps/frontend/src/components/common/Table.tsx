@@ -46,7 +46,7 @@ export function Table<T>(props: Props<T> & JSX.HTMLAttributes<HTMLDivElement>) {
             )}
         >
             <table
-                class="min-w-full text-lg md:text-xl lg:text-2xl"
+                class="min-w-full text-base sm:text-lg xl:text-xl"
                 classList={{
                     "divide-y divide-neutral-700": rows.length > 0,
                 }}
@@ -60,7 +60,7 @@ export function Table<T>(props: Props<T> & JSX.HTMLAttributes<HTMLDivElement>) {
                                         <th
                                             scope="col"
                                             class={cn(
-                                                "py-3 px-2 text-left font-normal uppercase w-full whitespace-nowrap transition-colors",
+                                                "py-2 px-2 text-left font-normal uppercase w-full whitespace-nowrap transition-colors sm:py-3",
                                                 {
                                                     "pl-4": i() === 0,
                                                     "pr-4":
@@ -145,7 +145,7 @@ export function Table<T>(props: Props<T> & JSX.HTMLAttributes<HTMLDivElement>) {
                                     {(cell, i) => (
                                         <td
                                             class={cn(
-                                                "whitespace-nowrap py-3 px-2 group/cell transition-colors",
+                                                "whitespace-nowrap py-2 px-2 group/cell transition-colors sm:py-3",
                                                 {
                                                     "pl-4": i() === 0,
                                                     "pr-4":

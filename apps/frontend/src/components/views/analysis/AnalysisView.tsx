@@ -37,7 +37,7 @@ export default function AnalysisView() {
             >
                 <div class="md:w-1/2">
                     <h3
-                        class="text-3xl mb-1 uppercase ml-4"
+                        class="text-2xl mb-1 uppercase ml-4 sm:text-3xl"
                         // @ts-ignore
                         use:tooltip={{
                             content: (
@@ -56,7 +56,7 @@ export default function AnalysisView() {
                 </div>
                 <div class="md:w-1/2">
                     <h3
-                        class="text-3xl mb-1 uppercase ml-4"
+                        class="text-2xl mb-1 uppercase ml-4 sm:text-3xl"
                         // @ts-ignore
                         use:tooltip={{
                             content: (
@@ -82,7 +82,7 @@ export default function AnalysisView() {
                 >
                     <div class="sm:w-1/2">
                         <h3
-                            class="text-3xl uppercase mb-1 ml-4"
+                            class="text-2xl uppercase mb-1 ml-4 sm:text-3xl"
                             // @ts-ignore
                             use:tooltip={{
                                 content: (
@@ -109,7 +109,7 @@ export default function AnalysisView() {
                     </div>
                     <div class="sm:w-1/2">
                         <h3
-                            class="text-3xl uppercase mb-1 ml-4"
+                            class="text-2xl uppercase mb-1 ml-4 sm:text-3xl"
                             // @ts-ignore
                             use:tooltip={{
                                 content: (
@@ -143,7 +143,7 @@ export default function AnalysisView() {
             >
                 <div>
                     <h3
-                        class="text-3xl uppercase ml-4"
+                        class="text-2xl uppercase ml-4 sm:text-3xl"
                         // @ts-ignore
                         use:tooltip={{
                             content: (
@@ -194,7 +194,7 @@ export default function AnalysisView() {
             <div class="flex-col md:flex-row flex gap-4 mb-8" id="duo-result">
                 <div class="md:w-1/2">
                     <h3
-                        class="text-3xl uppercase ml-4"
+                        class="text-2xl uppercase ml-4 sm:text-3xl"
                         // @ts-ignore
                         use:tooltip={{
                             content: (
@@ -228,7 +228,7 @@ export default function AnalysisView() {
                 </div>
                 <div class="md:w-1/2">
                     <h3
-                        class="text-3xl uppercase ml-4"
+                        class="text-2xl uppercase ml-4 sm:text-3xl"
                         // @ts-ignore
                         use:tooltip={{
                             content: (
@@ -265,7 +265,7 @@ export default function AnalysisView() {
             {/* <div class="mb-2 mt-16 flex justify-center items-center gap-2">
                 <div class="h-[3px] bg-neutral-700 w-24" />
 
-                <h2 class="text-4xl uppercase text-neutral-500 text-center">
+                <h2 class="text-3xl uppercase text-neutral-500 text-center sm:text-4xl">
                     Misc
                 </h2>
 
@@ -273,7 +273,7 @@ export default function AnalysisView() {
             </div> */}
 
             <div>
-                <h3 class="text-3xl uppercase ml-4">
+                <h3 class="text-2xl uppercase ml-4 sm:text-3xl">
                     {t(config, "scaling")}
                 </h3>
                 <span

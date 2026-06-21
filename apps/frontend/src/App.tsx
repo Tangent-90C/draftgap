@@ -45,7 +45,7 @@ import { t } from "./utils/i18n";
 const App: Component = () => {
     const { config } = useUser();
     const { currentDraftView, setCurrentDraftView } = useDraftView();
-    const { dataset, isLoaded } = useDataset();
+    const { dataset, dataset30Days, isLoaded } = useDataset();
     const { analysisPick, setAnalysisPick, showAnalysisPick } =
         useDraftAnalysis();
     const { startLolClientIntegration, stopLolClientIntegration } =
@@ -83,7 +83,10 @@ const App: Component = () => {
                 <Switch>
                     <Match
                         when={
-                            dataset.state === "ready" && dataset() === undefined
+                            (dataset.state === "ready" &&
+                                dataset() === undefined) ||
+                            (dataset30Days.state === "ready" &&
+                                dataset30Days() === undefined)
                         }
                     >
                         <div class="flex justify-center items-center h-full text-2xl text-red-500">
@@ -96,21 +99,30 @@ const App: Component = () => {
                         </div>
                     </Match>
                     <Match when={isLoaded()}>
-                        <Dialog
-                            open={showAnalysisPick()}
-                            onOpenChange={(open) => {
-                                if (!open) setAnalysisPick(undefined);
-                            }}
-                        >
-                            <ChampionDraftAnalysisDialog
-                                championKey={analysisPick()!.championKey}
-                                team={analysisPick()!.team}
-                                openChampionDraftAnalysisModal={(
-                                    team,
-                                    championKey,
-                                ) => setAnalysisPick({ team, championKey })}
-                            />
-                        </Dialog>
+                        <Show when={showAnalysisPick() && analysisPick()}>
+                            {(pick) => (
+                                <Dialog
+                                    open={showAnalysisPick()}
+                                    onOpenChange={(open) => {
+                                        if (!open) setAnalysisPick(undefined);
+                                    }}
+                                >
+                                    <ChampionDraftAnalysisDialog
+                                        championKey={pick().championKey}
+                                        team={pick().team}
+                                        openChampionDraftAnalysisModal={(
+                                            team,
+                                            championKey,
+                                        ) =>
+                                            setAnalysisPick({
+                                                team,
+                                                championKey,
+                                            })
+                                        }
+                                    />
+                                </Dialog>
+                            )}
+                        </Show>
                         <div class="flex flex-col min-h-full flex-1">
                             <ViewTabs
                                 tabs={
@@ -208,7 +220,7 @@ const App: Component = () => {
                 <FAQDialog />
             </Dialog>
             <header class="bg-primary px-1 py-0 border-b-2 border-neutral-700 flex justify-between">
-                <h1 class="text-4xl sm:text-5xl mr-2 ml-1 mt-1 mb-[0.4rem] font-semibold tracking-wide">
+                <h1 class="text-3xl sm:text-4xl xl:text-5xl mr-2 ml-1 mt-1 mb-[0.4rem] font-semibold tracking-wide">
                     DRAFTGAP
                 </h1>
                 <div class="flex items-center gap-4">

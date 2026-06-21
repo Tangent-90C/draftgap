@@ -133,7 +133,7 @@ export function Pick(props: Props) {
             onMouseOut={onMouseOut}
         >
             <Show when={!champion()}>
-                <span class="absolute top-2 left-2 uppercase text-2xl leading-none">
+                <span class="absolute top-2 left-2 uppercase text-lg leading-none sm:text-xl xl:text-2xl">
                     {t(config, "pickNumber", { number: props.index + 1 })}
                 </span>
             </Show>
@@ -157,7 +157,7 @@ export function Pick(props: Props) {
                         }}
                     />
 
-                    <span class="absolute top-2 left-2 uppercase text-2xl leading-none">
+                    <span class="absolute top-2 left-2 max-w-[calc(100%-2.5rem)] truncate uppercase text-lg leading-none sm:text-xl xl:text-2xl">
                         {championName(champion()!, config)}
                     </span>
 
@@ -206,7 +206,7 @@ export function Pick(props: Props) {
                                     <div class="text-md">
                                         <RoleIcon
                                             role={role}
-                                            class="h-8 lg:h-10"
+                                            class="h-7 sm:h-8 xl:h-10"
                                             classList={{
                                                 "opacity-50":
                                                     teamCompRole() !== role,

@@ -33,7 +33,7 @@ export function TeamSidebar(props: IProps) {
             <DamageDistributionBar team={props.team} />
             <div class="flex-1 flex justify-center items-center bg-[#141414]">
                 <span
-                    class="text-[2.5rem] text-center leading-tight"
+                    class="text-[1.75rem] text-center leading-tight sm:text-[2rem] xl:text-[2.5rem]"
                     // @ts-ignore
                     use:tooltip={{
                         content:
